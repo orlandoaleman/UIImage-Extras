@@ -10,4 +10,15 @@
 
 /// Set the image orientation to portrait
 - (UIImage *)fixOrientation;
+
+- (UIImage *)imageAtRect:(CGRect)rect;
+- (UIImage *)imageByScalingProportionallyToMinimumSize:(CGSize)targetSize;
+- (UIImage *)imageByScalingProportionallyToSize:(CGSize)targetSize;
+- (UIImage *)imageByScalingToSize:(CGSize)targetSize;
+- (UIImage *)imageRotatedByRadians:(CGFloat)radians;
+- (UIImage *)imageRotatedByDegrees:(CGFloat)degrees;
+
+/// Return a new image tinted with the specified color
+- (UIImage *)imageTintedOfColor:(UIColor *)color;
+
 @end
