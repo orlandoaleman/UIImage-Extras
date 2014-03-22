@@ -10,10 +10,5 @@
 //
 
 @interface UIImage (RoundedCorner)
-
-
-/// Creates a copy of this image with rounded corners. If borderSize is non-zero, a transparent border of
-/// the given size will also be added
 - (UIImage *)roundedCornerImage:(NSInteger)cornerSize borderSize:(NSInteger)borderSize;
-
 @end

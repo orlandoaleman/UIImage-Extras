@@ -7,27 +7,21 @@
 // http://vocaro.com/trevor/blog/2009/10/12/resize-a-uiimage-the-right-way/
 //
 
-
 #import "UIImage+AlphaAdditions.h"
-
 
 @implementation UIImage (Alpha)
 
 // Returns true if the image has an alpha layer
-- (BOOL)hasAlpha
-{
+- (BOOL)hasAlpha {
     CGImageAlphaInfo alpha = CGImageGetAlphaInfo(self.CGImage);
-    
     return (alpha == kCGImageAlphaFirst ||
             alpha == kCGImageAlphaLast ||
             alpha == kCGImageAlphaPremultipliedFirst ||
             alpha == kCGImageAlphaPremultipliedLast);
 }
 
-
 // Returns a copy of the given image, adding an alpha channel if it doesn't already have one
-- (UIImage *)imageWithAlpha
-{
+- (UIImage *)imageWithAlpha {
     if ([self hasAlpha]) {
         return self;
     }
@@ -57,11 +51,9 @@
     return imageWithAlpha;
 }
 
-
 // Returns a copy of the image with a transparent border of the given size added around its edges.
 // If the image has no alpha layer, one will be added to it.
-- (UIImage *)transparentBorderImage:(NSUInteger)borderSize
-{
+- (UIImage *)transparentBorderImage:(NSUInteger)borderSize {
     // If the image does not have an alpha layer, add one
     UIImage *image = [self imageWithAlpha];
     
@@ -78,7 +70,6 @@
     
     // Draw the image in the center of the context, leaving a gap around the edges
     CGRect imageLocation = CGRectMake(borderSize, borderSize, image.size.width, image.size.height);
-    
     CGContextDrawImage(bitmap, imageLocation, self.CGImage);
     CGImageRef borderImageRef = CGBitmapContextCreateImage(bitmap);
     
@@ -96,15 +87,13 @@
     return transparentBorderImage;
 }
 
-
 #pragma mark -
 #pragma mark Private helper methods
 
 // Creates a mask that makes the outer edges transparent and everything else opaque
 // The size must include the entire mask (opaque part + transparent border)
 // The caller is responsible for releasing the returned reference by calling CGImageRelease
-- (CGImageRef)newBorderMask:(NSUInteger)borderSize size:(CGSize)size
-{
+- (CGImageRef)newBorderMask:(NSUInteger)borderSize size:(CGSize)size {
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
     
     // Build a context that's the same dimensions as the new size
@@ -133,6 +122,5 @@
     
     return maskImageRef;
 }
-
 
 @end
